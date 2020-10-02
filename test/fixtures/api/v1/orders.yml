@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: 1
+  plan_membership_id: 
+  date: 2020-08-25 14:02:10
+
+two:
+  number: 1
+  plan_membership_id: 
+  date: 2020-08-25 14:02:10
