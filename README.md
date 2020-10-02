@@ -1,24 +1,21 @@
-# README
+# Verses
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<p> Verses is a subscription-based wardrobe service for the queer community and all other divergent dressers! Made for those for whom what you wear is more than a wardrobe. </p>
 
-Things you may want to cover:
 
-* Ruby version
+![Screen Shot 2020-09-22 at 8 33 41 PM](https://user-images.githubusercontent.com/59094356/94614249-e320bc00-0273-11eb-956d-96fdca851d6e.png)
 
-* System dependencies
+![Screen Shot 2020-09-22 at 8 33 19 PM](https://user-images.githubusercontent.com/59094356/94614288-f2a00500-0273-11eb-84ce-102947fdbd76.png)
 
-* Configuration
 
-* Database creation
+## Features
+<li>Create and Save Cart and Favorites</li>
+<li>Multiple plans to choose from!</li>
+<li>View Order History</li>
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Stack
+<li> Ruby on Rails </li>
+<li> React.js </li>
+<li> Redux </li>
+<li> CSS </li>
+<li> RubyMoney </li>
