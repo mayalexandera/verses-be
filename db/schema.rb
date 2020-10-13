@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_08_034042) do
+ActiveRecord::Schema.define(version: 2020_10_13_052518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_034042) do
     t.integer "member_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "total_cost_string"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -79,6 +80,9 @@ ActiveRecord::Schema.define(version: 2020_09_08_034042) do
     t.integer "sub_total_cents", default: 0, null: false
     t.string "sub_total_currency", default: "USD", null: false
     t.string "total_cost_string"
+    t.string "sub_total_string"
+    t.string "tax_string"
+    t.string "shipping_cost_string"
     t.index ["member_id"], name: "index_orders_on_member_id"
   end
 

@@ -21,11 +21,16 @@ class CartItem < ApplicationRecord
     self.update!(quantity: quantity-1)
   end
 
+  def price
+    total = Money.new(self.product.price * self.quantity)
+    total
+  end
+
   def increment
     self.update!(quantity: quantity+1)
   end
 
-  def create_size_string 
+  def create_size_string
     self.update!(size_string: Size.find(self.size_id).size)
   end
 end

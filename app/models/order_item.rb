@@ -51,7 +51,7 @@ class OrderItem < ApplicationRecord
     quantity: cart_item.quantity,
     price: cart_item.product.price
     )
-    return !@order_item.save ? 'an error' : @order_item
+    return !@order_item.save ? 'Unable to process order item' : @order_item
   end
 
 end

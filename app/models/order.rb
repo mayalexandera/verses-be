@@ -8,10 +8,13 @@
 #  shipped_date           :datetime
 #  shipping_cost_cents    :integer          default(0), not null
 #  shipping_cost_currency :string           default("USD"), not null
+#  shipping_cost_string   :string
 #  sub_total_cents        :integer          default(0), not null
 #  sub_total_currency     :string           default("USD"), not null
+#  sub_total_string       :string
 #  tax_cents              :integer          default(0), not null
 #  tax_currency           :string           default("USD"), not null
+#  tax_string             :string
 #  total_cost_cents       :integer          default(0), not null
 #  total_cost_currency    :string           default("USD"), not null
 #  total_cost_string      :string

@@ -1,18 +1,19 @@
 class Api::V1::CartsController < ApplicationController
   before_action :set_cart, except: [:create]
-
   def show
       if @cart
+  
         render json: @cart, include: [:cart_items, :products]
       else 
-        render json: { message: 'could not locate cart.'}
+        render json: { status: 401, message: 'could not locate cart.'}
       end
   end
 
   def create
-    @cart = Cart.create(cart_params)
+    @cart = Cart.new(cart_params)
 
     if @cart.save
+
       render json: @cart
     end
   end
@@ -20,6 +21,7 @@ class Api::V1::CartsController < ApplicationController
   def delete_item 
     @cart_item = @cart.cart_items.find_by(id: params[:size_id])
     @cart_item.destroy!
+
     render :show
   end
 

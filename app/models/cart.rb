@@ -2,10 +2,11 @@
 #
 # Table name: carts
 #
-#  id         :bigint           not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  member_id  :integer
+#  id                :bigint           not null, primary key
+#  total_cost_string :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  member_id         :integer
 #
 class Cart < ApplicationRecord
   validates :member_id, presence: true
@@ -18,6 +19,17 @@ class Cart < ApplicationRecord
   accepts_nested_attributes_for :products, allow_destroy: true
   accepts_nested_attributes_for :sizes, allow_destroy: true
   accepts_nested_attributes_for :cart_items, allow_destroy: true
+
+  def create_price_string
+    byebug
+    total = Money.new()
+    byebug
+    self.cart_items.map{ |cart_item| total += cart_item.price} if self.cart_items
+    byebug
+    puts total
+    self.update!(total_cost_string: total.format)
+
+  end
 
 
 end
