@@ -12,9 +12,10 @@ Brand.create!(name: "Kirrin Finch", url: "https://kirrinfinch.com/")
 Brand.create!(name: "Gender Free World", url: "https://www.genderfreeworld.com/", size_chart: "https://www.genderfreeworld.com/pages/our-sizing")
 Brand.create!(name: "Stuzo Clothing", url: "https://www.stuzoclothing.com/")
 
-Plan.create!(name: "1 Swap", price: 89,  description: "4 items/month")
-Plan.create!(name: "2 Swap", price: 135, description: "8 items/month")
-Plan.create!(name: "Unlimited", price: 159, description: "Unlimited Items")
+Plan.create!(items: 4, price: 89,  description: "Great for a monthly pick-me-up with versatile essentials and statement pieces.", features: "1 shipment/month,Basic closet access")
+Plan.create!(items: 8, price: 135, description: "Great for outfit updates and special occasions, including work and weekend looks.", features: "2 shipments/month,Full closet access,Rent 4 items at a time")
+
+Plan.create!(items: 16, price: 159, description: "Great for weekly newness for work, weekends, special events and more.", features: '4 shipments/month,Full closet access,Rent 4 items at a time')
 
 User.create!(name: "Mary Poppins", email: "mpoppins@gmail.com", session_token: SecureRandom.urlsafe_base64, password:"password")
 User.create!(name: "KD Lang", email: "KDlang@gmail.com", session_token: SecureRandom.urlsafe_base64, password:"password")
@@ -566,7 +567,4 @@ Size.create!(product_number: 100103, size: 'L', brand_id: Brand.find_by(name: "S
 Size.create!(product_number: 100103, size: 'XL', brand_id: Brand.find_by(name: "Stuzo Clothing").id, colorway: "Black", product_id: Product.find_by(product_number: 100103).id, stock: 10)
 Size.create!(product_number: 100103, size: 'XXL', brand_id: Brand.find_by(name: "Stuzo Clothing").id, colorway: "Black", product_id: Product.find_by(product_number: 100103).id, stock: 10)
 
-
-
-Favorite.create!(member_id: User.first.id, product_id: Product.second.id)
 

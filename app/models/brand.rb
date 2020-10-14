@@ -14,7 +14,7 @@
 #  index_brands_on_name  (name) UNIQUE
 #
 class Brand < ApplicationRecord
-  validates :name, :size_chart, :url, presence: true
-
+  validates :name, :url, presence: true
+  validates  :size_chart, presence: true, allow_nil: true
   has_many :products
 end

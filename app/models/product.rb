@@ -26,12 +26,10 @@
 class Product < ApplicationRecord
   validates :brand_id, :price_cents, :description, :product_number, presence: true
   monetize :price_cents, allow_nil: true
-  after_create :unique_sizes, :create_price_string, :create_image_array
+  after_create :unique_sizes, :create_price_string
 
- 
   belongs_to :brand
   has_many :sizes
-
 
   def unique_sizes
     sizes = self.sizes.map{ |s| s.size }.uniq()

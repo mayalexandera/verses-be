@@ -4,7 +4,8 @@
 #
 #  id             :bigint           not null, primary key
 #  description    :string
-#  name           :string
+#  features       :text
+#  items          :integer
 #  price_cents    :integer          default(0), not null
 #  price_currency :string           default("USD"), not null
 #  price_string   :string
@@ -12,7 +13,7 @@
 #  updated_at     :datetime         not null
 #
 class Plan < ApplicationRecord
-  validates :name, :price, :description, presence: true
+  validates :price, :description, :features, :items, presence: true, allow_nil: true
   monetize :price_cents, allow_nil: true
 
   has_many :plan_memberships
