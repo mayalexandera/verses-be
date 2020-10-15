@@ -21,11 +21,8 @@ class Cart < ApplicationRecord
   accepts_nested_attributes_for :cart_items, allow_destroy: true
 
   def create_price_string
-    byebug
     total = Money.new()
-    byebug
     self.cart_items.map{ |cart_item| total += cart_item.price} if self.cart_items
-    byebug
     puts total
     self.update!(total_cost_string: total.format)
 

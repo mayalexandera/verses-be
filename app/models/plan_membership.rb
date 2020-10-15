@@ -15,7 +15,7 @@
 #
 class PlanMembership < ApplicationRecord
   validates :plan_id, presence: true
-  after_create :create_plan_name_string
+  # after_create :create_plan_name_string
   
   belongs_to :member, class_name: "User"
   belongs_to :plan

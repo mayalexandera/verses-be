@@ -18,11 +18,14 @@ class Api::V1::CartItemsController < ApplicationController
     render json: @cart_item
   end
 
-  def destroy 
+  def destroy
     @cart = Cart.find_by(member_id: params[:user_id])
-    @cart_item = @cart.cart_items.find_by(id: params[:item_id])
+    @cart_item = @cart.cart_items.find_by(id: params[:id])
     if @cart_item 
-      @cart_item.destroy
+      @cart_item.destroy!
+      render json: 'success'
+    else
+      render json: 'no success'
     end
   end
 

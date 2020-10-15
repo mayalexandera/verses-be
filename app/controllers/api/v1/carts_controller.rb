@@ -1,8 +1,8 @@
 class Api::V1::CartsController < ApplicationController
   before_action :set_cart, except: [:create]
+
   def show
       if @cart
-  
         render json: @cart, include: [:cart_items, :products]
       else 
         render json: { status: 401, message: 'could not locate cart.'}
@@ -11,10 +11,10 @@ class Api::V1::CartsController < ApplicationController
 
   def create
     @cart = Cart.new(cart_params)
-
     if @cart.save
-
       render json: @cart
+    else
+      render json: { status: 401, message: 'Unable to create cart.'}
     end
   end
 

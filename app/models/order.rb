@@ -46,8 +46,9 @@ class Order < ApplicationRecord
    self.order_items.map{ |order_item| order_item.calculate_item_total }
    self.order_items.map{ |order_item| order_item.update_stock(order_item.size_id, order_item.quantity) }
    self.calculate_costs
+   @cart.cart_items.map{ |cart_item| cart_item.destroy!}
+   self.create_price_string
   end
-
 
   def calculate_costs 
     self.calculate_subtotal

@@ -27,20 +27,20 @@
 #                                       PUT    /api/v1/users/:user_id/order_items/:id(.:format)                                         api/v1/order_items#update {:format=>:json}
 #           api_v1_user_plan_membership DELETE /api/v1/users/:user_id/plan_membership(.:format)                                         api/v1/plan_memberships#destroy {:format=>:json}
 #                                       POST   /api/v1/users/:user_id/plan_membership(.:format)                                         api/v1/plan_memberships#create {:format=>:json}
-#           api_v1_user_cart_cart_items GET    /api/v1/users/:user_id/cart/cart_items(.:format)                                         api/v1/cart_items#show {:format=>:json}
-#                                       DELETE /api/v1/users/:user_id/cart/cart_items(.:format)                                         api/v1/cart_items#destroy {:format=>:json}
-#                                       POST   /api/v1/users/:user_id/cart/cart_items(.:format)                                         api/v1/cart_items#create {:format=>:json}
+#           api_v1_user_cart_cart_items POST   /api/v1/users/:user_id/cart/cart_items(.:format)                                         api/v1/cart_items#create {:format=>:json}
+#            api_v1_user_cart_cart_item GET    /api/v1/users/:user_id/cart/cart_items/:id(.:format)                                     api/v1/cart_items#show {:format=>:json}
+#                                       DELETE /api/v1/users/:user_id/cart/cart_items/:id(.:format)                                     api/v1/cart_items#destroy {:format=>:json}
 #                      api_v1_user_cart GET    /api/v1/users/:user_id/cart(.:format)                                                    api/v1/carts#show {:format=>:json}
 #                                       DELETE /api/v1/users/:user_id/cart(.:format)                                                    api/v1/carts#destroy {:format=>:json}
 #                                       POST   /api/v1/users/:user_id/cart(.:format)                                                    api/v1/carts#create {:format=>:json}
-#                   api_v1_user_session DELETE /api/v1/users/:user_id/session(.:format)                                                 api/v1/sessions#destroy {:format=>:json}
-#                                       POST   /api/v1/users/:user_id/session(.:format)                                                 api/v1/sessions#create {:format=>:json}
 #                                       GET    /api/v1/users(.:format)                                                                  api/v1/users#index {:format=>:json}
 #                                       POST   /api/v1/users(.:format)                                                                  api/v1/users#create {:format=>:json}
 #                           api_v1_user GET    /api/v1/users/:id(.:format)                                                              api/v1/users#show {:format=>:json}
 #                                       PATCH  /api/v1/users/:id(.:format)                                                              api/v1/users#update {:format=>:json}
 #                                       PUT    /api/v1/users/:id(.:format)                                                              api/v1/users#update {:format=>:json}
 #                                       DELETE /api/v1/users/:id(.:format)                                                              api/v1/users#destroy {:format=>:json}
+#                        api_v1_session DELETE /api/v1/session(.:format)                                                                api/v1/sessions#destroy {:format=>:json}
+#                                       POST   /api/v1/session(.:format)                                                                api/v1/sessions#create {:format=>:json}
 #         rails_mandrill_inbound_emails POST   /rails/action_mailbox/mandrill/inbound_emails(.:format)                                  action_mailbox/ingresses/mandrill/inbound_emails#create
 #         rails_postmark_inbound_emails POST   /rails/action_mailbox/postmark/inbound_emails(.:format)                                  action_mailbox/ingresses/postmark/inbound_emails#create
 #            rails_relay_inbound_emails POST   /rails/action_mailbox/relay/inbound_emails(.:format)                                     action_mailbox/ingresses/relay/inbound_emails#create
@@ -88,7 +88,7 @@ Rails.application.routes.draw do
         
         resource :plan_membership, only: [:create, :destroy]
         resource :cart, only: [:create, :show, :destroy] do
-          resource :cart_items, only: [:show, :destroy, :create]
+          resources :cart_items, only: [:show, :destroy, :create]
         end
       end
       resource :session, only: [:create, :destroy]

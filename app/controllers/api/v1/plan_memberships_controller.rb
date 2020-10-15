@@ -18,8 +18,13 @@ class Api::V1::PlanMembershipsController < ApplicationController
 
     else
       @user.subscribed
-      render json: {message:"You currently have a subscription.  Would you like to change your plan?", status: 204}
+      render json: { message:"You currently have a subscription.  Would you like to change your plan?", status: 204 }
     end
+  end
+
+  def show
+    @user = User.find(params[:user_id])
+    render json: @user.plan_membership
   end
 
   def destroy
@@ -29,7 +34,7 @@ class Api::V1::PlanMembershipsController < ApplicationController
     if @plan_membership
       @plan_membership.destroy!
       @user.update!(subscribed: false, plan_membership_id: nil)
-      render json: {message: 'Please choose new plan.'}
+      render json: { message: 'Please choose new plan.' }
     else 
       render json: { message: 'You are currently a non-subscriber' }
     end
