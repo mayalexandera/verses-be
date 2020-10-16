@@ -21,9 +21,10 @@ class Api::V1::CartItemsController < ApplicationController
   def destroy
     @cart = Cart.find_by(member_id: params[:user_id])
     @cart_item = @cart.cart_items.find_by(id: params[:id])
-    if @cart_item 
+    if @cart_item
       @cart_item.destroy!
-      render json: 'success'
+      @cart.create_price_string
+      render json: @cart
     else
       render json: 'no success'
     end

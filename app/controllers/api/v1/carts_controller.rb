@@ -3,7 +3,8 @@ class Api::V1::CartsController < ApplicationController
 
   def show
       if @cart
-        render json: @cart, include: [:cart_items, :products]
+         @cart.create_price_string
+        render json: @cart, include: :cart_items
       else 
         render json: { status: 401, message: 'could not locate cart.'}
       end
@@ -18,11 +19,11 @@ class Api::V1::CartsController < ApplicationController
     end
   end
 
-  def delete_item 
+  def delete_item
     @cart_item = @cart.cart_items.find_by(id: params[:size_id])
     @cart_item.destroy!
-
-    render :show
+    @cart.create_price_string
+    render json: @cart
   end
 
   def add_item
@@ -31,6 +32,7 @@ class Api::V1::CartsController < ApplicationController
 
     item = @cart.cart_items.find_by(size_id: @size.id)
     item.increment if item
+    @cart.create_price_string
     @cart_item = CartItem.create!(
       cart_id: @cart.id,
       product_id: @product.id,
