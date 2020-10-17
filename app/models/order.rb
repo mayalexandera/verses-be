@@ -47,14 +47,14 @@ class Order < ApplicationRecord
    self.order_items.map{ |order_item| order_item.update_stock(order_item.size_id, order_item.quantity) }
    self.calculate_costs
    @cart.cart_items.map{ |cart_item| cart_item.destroy!}
-   self.create_price_string
   end
-
+  
   def calculate_costs 
     self.calculate_subtotal
     self.calculate_shipping
     self.calculate_order_tax
     self.calculate_total
+    self.create_price_string
   end
 
   def calculate_subtotal
@@ -79,7 +79,7 @@ class Order < ApplicationRecord
     )
   end
 
-  def create_price_string
+  def create_price_strings
     self.update!(total_cost_string: self.total_cost.format)
   end
 
