@@ -31,6 +31,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'better_errors'
   gem 'money-rails', '~> 1.13', '>= 1.13.3'
+  gem 'faker'
   gem 'annotate'
   gem 'binding_of_caller'
   gem 'pry-byebug'

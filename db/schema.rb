@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_13_215403) do
+ActiveRecord::Schema.define(version: 2020_10_20_212310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2020_10_13_215403) do
     t.string "sub_total_string"
     t.string "tax_string"
     t.string "shipping_cost_string"
+    t.string "ordered_date"
     t.index ["member_id"], name: "index_orders_on_member_id"
   end
 
