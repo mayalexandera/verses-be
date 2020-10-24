@@ -6,6 +6,7 @@ class Api::V1::CartItemsController < ApplicationController
     @product = Product.find_by(id: params[:product_id])
     @size = Size.find_by(product_id: @product.id, size: params[:size])
     item = @cart.cart_items.find_by(size_id: @size.id)
+    
    if item
     item.increment
    else 

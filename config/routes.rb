@@ -86,7 +86,7 @@ Rails.application.routes.draw do
           resources :order_items, only: [:create, :update]
   
         
-        resource :plan_membership, only: [:create, :destroy]
+        resource :plan_membership, only: [:create, :destroy, :update, :show]
         resource :cart, only: [:create, :show, :destroy] do
           resources :cart_items, only: [:show, :destroy, :create]
         end

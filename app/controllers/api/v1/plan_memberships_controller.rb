@@ -17,8 +17,8 @@ class Api::V1::PlanMembershipsController < ApplicationController
     render json: @plan_membership
 
     else
-      @user.subscribed
-      render json: { message:"You currently have a subscription.  Would you like to change your plan?", status: 204 }
+      @plan_membership = @user.plan_membership
+      render json: { message:"You currently have a subscription.  Would you like to change your plan?", status: 204, plan_membership: @plan_membership }
     end
   end
 
