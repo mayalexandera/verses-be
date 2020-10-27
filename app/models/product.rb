@@ -21,7 +21,7 @@
 #
 # Indexes
 #
-#  index_products_on_brand_id_and_product_number  (brand_id,product_number) UNIQUE
+#  index_products_on_brand_id_and_product_number_and_images  (brand_id,product_number,images) UNIQUE
 #
 class Product < ApplicationRecord
   validates :brand_id, :price_cents, :description, :product_number, presence: true
@@ -36,12 +36,6 @@ class Product < ApplicationRecord
     sizestring = ""
     sizes.map{|s| sizestring.concat(s+ ",")}
     self.update!(size_range: sizestring[0...-1])
-  end
-
-  def create_image_array
-  images = ""
-  self.images.split(",").each{ |img| images.push(img)}
-  return images
   end
 
   def create_price_string

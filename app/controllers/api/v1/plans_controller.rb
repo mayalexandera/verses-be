@@ -1,7 +1,7 @@
 class Api::V1::PlansController < ApplicationController
   def index 
     @plans = Plan.all
-    render json: @plans
+    render json: @plans.sort_by{ |t| t.price }
   end
 
   def show 
