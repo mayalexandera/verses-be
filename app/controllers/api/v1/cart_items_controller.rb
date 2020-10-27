@@ -20,11 +20,23 @@ class Api::V1::CartItemsController < ApplicationController
 
   def update
     @cart_item = CartItem.find(params[:cart_item_id])
-    @size = Size.find_by(product_id: params[:product][:id], size: params[:size])
-    @cart_item.update!(size_id: @size.id)
-    puts @cart_item
-    @cart_item.create_size_string
-    render json: @cart_item
+        @cart = Cart.find_by(member_id: params[:user_id])
+
+    if params[:type] === "size"
+      @size = Size.find_by(product_id: params[:product_id], size: params[:size])
+      @cart_item.update!(size: @size)
+      @cart_item.create_size_string
+      @cart.create_price_string
+
+    end
+
+    if params[:type] === 'quantity'
+      @size = Size.find_by(product_id: params[:product_id])
+      @cart_item.update!(quantity: params[:quantity])
+      @cart.create_price_string
+    end
+    render json: {cart_item: @cart_item, cart: @cart}
+
   end
 
   def destroy
