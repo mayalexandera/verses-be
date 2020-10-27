@@ -88,7 +88,7 @@ Rails.application.routes.draw do
         
         resource :plan_membership, only: [:create, :destroy, :update, :show]
         resource :cart, only: [:create, :show, :destroy] do
-          resources :cart_items, only: [:show, :destroy, :create]
+          resources :cart_items, only: [:show, :destroy, :create, :update]
         end
       end
       resource :session, only: [:create, :destroy]

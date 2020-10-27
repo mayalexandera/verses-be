@@ -22,7 +22,7 @@ class Api::V1::UsersController < ApplicationController
   
   def show
       @user = User.find_by(id: params[:id])
-      render json: @user, include: [:plan_membership]
+      render json: @user, include: [:plan_membership, :plan]
       
   end
   

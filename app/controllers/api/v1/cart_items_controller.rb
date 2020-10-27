@@ -18,6 +18,15 @@ class Api::V1::CartItemsController < ApplicationController
     render json: @cart_item
   end
 
+  def update
+    @cart_item = CartItem.find(params[:cart_item_id])
+    @size = Size.find_by(product_id: params[:product][:id], size: params[:size])
+    @cart_item.update!(size_id: @size.id)
+    puts @cart_item
+    @cart_item.create_size_string
+    render json: @cart_item
+  end
+
   def destroy
     @cart = Cart.find_by(member_id: params[:user_id])
     @cart_item = @cart.cart_items.find_by(id: params[:id])
