@@ -8,8 +8,6 @@ class Api::V1::UsersController < ApplicationController
 
   def create
 
-    # @user = User.create!(user_params)
-    
     @user = User.new(user_params)
     @user.password=(params[:password])
     if @user.save
@@ -23,9 +21,8 @@ class Api::V1::UsersController < ApplicationController
   end
   
   def show
-
       @user = User.find_by(id: params[:id])
-      render json: @user, include:[:plan_membership]
+      render json: @user, include: [:plan_membership]
       
   end
   

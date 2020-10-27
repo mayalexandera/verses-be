@@ -1,8 +1,7 @@
 class Api::V1::CartItemsController < ApplicationController
 
   def create
-    # @cart = Cart.find_by(member_id: params[:user_id])
-       @cart = User.find(params[:user_id]).cart
+    @cart = Cart.find_or_create_by(member_id: params[:user_id])
     @product = Product.find_by(id: params[:product_id])
     @size = Size.find_by(product_id: @product.id, size: params[:size])
     item = @cart.cart_items.find_by(size_id: @size.id)
