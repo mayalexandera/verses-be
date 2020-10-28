@@ -13,8 +13,9 @@ class Api::V1::PlanMembershipsController < ApplicationController
       subscribed: true,
       plan_membership_id: @plan_membership.id
     )
+    @plan = @plan_membership.plan
 
-    render json: @plan_membership
+    render json:{plan_membership: @plan_membership, plan: @plan}
 
     else
       @plan_membership = @user.plan_membership
@@ -24,7 +25,13 @@ class Api::V1::PlanMembershipsController < ApplicationController
 
   def show
     @user = User.find(params[:user_id])
-    render json: @user.plan_membership
+    if @user.plan_membership
+      @plan = Plan.find_by(id: @user.plan_membership.plan_id)
+      
+      render json: {plan_membership: @user.plan_membership, plan: @plan}
+    else
+      render json: { status: 404, message: 'You are currently not enrolled' }
+    end 
   end
 
   def destroy
@@ -36,7 +43,7 @@ class Api::V1::PlanMembershipsController < ApplicationController
       @user.update!(subscribed: false, plan_membership_id: nil)
       render json: { message: 'Please choose new plan.' }
     else 
-      render json: { message: 'You are currently a non-subscriber' }
+      render json: { message: 'Membership not found.' }
     end
   end
 

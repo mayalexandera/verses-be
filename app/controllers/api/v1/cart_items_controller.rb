@@ -20,7 +20,7 @@ class Api::V1::CartItemsController < ApplicationController
 
   def update
     @cart_item = CartItem.find(params[:cart_item_id])
-        @cart = Cart.find_by(member_id: params[:user_id])
+    @cart = Cart.find_by(member_id: params[:user_id])
 
     if params[:type] === "size"
       @size = Size.find_by(product_id: params[:product_id], size: params[:size])
