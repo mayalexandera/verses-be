@@ -1,17 +1,12 @@
 class Api::V1::ProductsController < ApplicationController
 
   def index
-    puts params
-    if params[:brand_id]
-      products = Product.where(brand_id: params[:brand_id])
-    elsif params[:category]
-      products = Product.where(product_type: params[:category])
-    elsif params[:size]
-      products = Product.select { |p| p.sizes.includes(params[:size]) }
+    if params[:type]
+        products = Product.filter_selection(params[:type], params[:value])
     else 
-      products = Product.all.filter{ |p| p.product_type != "Accessory" && p.product_type != "Underwear" }
+      products = Product.all
     end
-    render json: { products: products, incude: :sizes }
+    render json: { products: products }
   end
 
   def show

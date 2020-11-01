@@ -26,12 +26,25 @@
 class Product < ApplicationRecord
   validates :brand_id, :price_cents, :description, :product_number, presence: true
   monetize :price_cents, allow_nil: true
-  after_create :unique_sizes, :create_price_string
+  after_create :create_size_range_string, :create_price_string
 
   belongs_to :brand
   has_many :sizes
 
-  def unique_sizes
+  def self.filter_selection(type, value)
+    if type === "brand"
+      products = Product.where(brand_id: value)
+    elsif type === "category"
+      products = Product.where(product_type: value)
+    elsif type === "size"
+      sizes = Size.where(size: value)
+      sizes.map{ |s| s.stock > 0 }
+      products = sizes.map{ |s| s.product }.uniq()
+    end
+    return products
+  end
+
+  def create_size_range_string
     sizes = self.sizes.map{ |s| s.size }.uniq()
     sizestring = ""
     sizes.map{|s| sizestring.concat(s+ ",")}

@@ -6,10 +6,9 @@ class Api::V1::OrdersController < ApplicationController
   end
 
   def create
-    user = User.find(params[:user_id])
     order = Order.create!(
       member_id: params[:user_id],
-      plan_membership_id: user.plan_membership_id,
+      plan_membership_id: params[:plan_membership_id],
       order_date: Date.today(),
       number: Faker::Number.number(digits: 8)
     )

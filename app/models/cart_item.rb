@@ -10,12 +10,13 @@
 #  size_id     :integer
 #
 class CartItem < ApplicationRecord
-  validates :cart_id, :size_id, presence: true
-  after_create :create_size_string
+  validates :cart_id, :size_id, :size_string, presence: true
 
   belongs_to :product
   belongs_to :cart
   belongs_to :size
+
+  # before_save :create_size_string
 
   def decrement
     self.update!(quantity: quantity-1)
@@ -26,18 +27,22 @@ class CartItem < ApplicationRecord
     total
   end
 
-  def update_cart_item(size, cart)
-    byebug
-    self.update!(size: size)
-    self.create_size_string
+  def update_cart_item(cart, type, value, product_id=nil)
+    if type === 'size'
+      size = Size.find_by(size: value, product_id: product_id)
+      self.update!(size: size)
+      self.create_size_string(size.size)
+    end
+    self.update!(quantity: value) if type === 'quantity'
     cart.create_price_string
   end
 
   def increment
+    self.create_size_string
     self.update!(quantity: quantity+1)
   end
 
   def create_size_string
-    self.update!(size_string: Size.find(self.size_id).size)
+    self.update!(size_string: size.size)
   end
 end

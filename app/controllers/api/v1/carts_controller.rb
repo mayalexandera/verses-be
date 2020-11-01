@@ -1,9 +1,10 @@
 class Api::V1::CartsController < ApplicationController
   before_action :set_cart, except: [:create]
+  action :create_price_string
 
   def show
     if @cart
-      @cart.create_price_string
+      # @cart.create_price_string
       render json:{ cart: @cart, cart_items: @cart.cart_items }
     else
       render json: { status: 401, message: 'could not locate cart.' }
@@ -19,15 +20,19 @@ class Api::V1::CartsController < ApplicationController
     end
   end
 
-  def refresh 
-    cart.cart_items.each { |c| c.destroy }
-    render json: cart
+  def refresh
+    @cart.cart_items.each { |c| c.destroy }
+    render json: @cart
   end
 
 
   private
   def set_cart
     @cart = Cart.find_by(member_id: params[:user_id])
+  end
+
+  def create_size_string
+    @cart.create_size_string
   end
 
   def cart_params
