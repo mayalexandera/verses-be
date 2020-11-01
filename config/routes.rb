@@ -69,11 +69,11 @@ Rails.application.routes.draw do
     namespace :v1, defaults: { format: :json } do
       
       resources :plans, only: [:index, :show]
-      resources :users, only: [:create]
+      resources :users, only: [:create, :show]
       resources :products, only: [:show, :index]
       
-      resources :brands, only: [:show, :index]  do 
-        resources :products, only: [:show, :index] do 
+      resources :brands, only: [:show, :index]  do
+        resources :products, only: [:show, :index] do
           resources :sizes, only: [:show, :update, :index]
         end
       end

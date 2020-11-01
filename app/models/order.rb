@@ -41,13 +41,13 @@ class Order < ApplicationRecord
 
 
   def checkout
-   @cart = Cart.find_by(member_id: self.member_id)
-   @cart.cart_items.map{ |cart_item| OrderItem.create_order_item(cart_item, self.id) }
+   cart = Cart.find_by(member_id: self.member_id)
+   cart.cart_items.map{ |cart_item| OrderItem.create_order_item(cart_item, self.id) }
   
    self.order_items.map{ |order_item| order_item.calculate_item_total }
    self.order_items.map{ |order_item| order_item.update_stock(order_item.size_id, order_item.quantity) }
    self.calculate_costs
-   @cart.cart_items.map{ |cart_item| cart_item.destroy!}
+   cart.cart_items.map{ |cart_item| cart_item.destroy!}
   end
   
   def calculate_costs 

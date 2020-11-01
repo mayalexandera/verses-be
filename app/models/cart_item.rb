@@ -26,6 +26,13 @@ class CartItem < ApplicationRecord
     total
   end
 
+  def update_cart_item(size, cart)
+    byebug
+    self.update!(size: size)
+    self.create_size_string
+    cart.create_price_string
+  end
+
   def increment
     self.update!(quantity: quantity+1)
   end

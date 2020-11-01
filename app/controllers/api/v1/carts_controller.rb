@@ -2,53 +2,30 @@ class Api::V1::CartsController < ApplicationController
   before_action :set_cart, except: [:create]
 
   def show
-      if @cart
-         @cart.create_price_string
-        render json: @cart, include: :cart_items
-      else 
-        render json: { status: 401, message: 'could not locate cart.'}
-      end
-  end
-
-  def create
-    @cart = Cart.new(cart_params)
-    if @cart.save
-      render json: @cart
+    if @cart
+      @cart.create_price_string
+      render json:{ cart: @cart, cart_items: @cart.cart_items }
     else
-      render json: { status: 401, message: 'Unable to create cart.'}
+      render json: { status: 401, message: 'could not locate cart.' }
     end
   end
 
-  def delete_item
-    @cart_item = @cart.cart_items.find_by(id: params[:size_id])
-    @cart_item.destroy!
-    @cart.create_price_string
-    render json: @cart
-  end
-
-  def add_item
-    @product = Product.find_by(id: params[:product_id])
-    @size = Size.find_by(product_id: @product.id, size: params[:size])
-
-    item = @cart.cart_items.find_by(size_id: @size.id)
-    item.increment if item
-    @cart.create_price_string
-    @cart_item = CartItem.create!(
-      cart_id: @cart.id,
-      product_id: @product.id,
-      size_id: @size.id
-    )
-    render json: {cart_item: @cart_item, size: @size}
+  def create
+    cart = Cart.new(cart_params)
+    if cart.save
+      render json: cart
+    else
+      render json: { status: 401, message: 'Unable to create cart.' }
+    end
   end
 
   def refresh 
-    @cart.cart_items.each { |c| c.destroy }
-    render json: @cart
+    cart.cart_items.each { |c| c.destroy }
+    render json: cart
   end
 
 
   private
-
   def set_cart
     @cart = Cart.find_by(member_id: params[:user_id])
   end

@@ -32,7 +32,6 @@ class User < ApplicationRecord
   has_one :plan_membership, class_name: 'PlanMembership', foreign_key: 'member_id'
   has_many :orders, class_name: "Order", foreign_key: "member_id"
   has_one :cart, class_name: "Cart", foreign_key: "member_id"
-  has_one :plan, through: :plan_membership, foreign_key: "member_id"
 
 
   def self.find_by_credentials(email, password)
@@ -42,7 +41,7 @@ class User < ApplicationRecord
   end
 
   def password=(password)
-    @password = password
+    password = password
     self.password_digest = BCrypt::Password.create(password)
   end
 

@@ -1,11 +1,11 @@
 class Api::V1::OrderItemsController < ApplicationController
 
   def create
-    @order_item = OrderItem.create(order_item_params)
-    if @order_item.save
-      render json: @order_item
+    order_item = OrderItem.create(order_item_params)
+    if order_item.save
+      render json: order_item
     else
-      render json: @order_item.errors.full_messages
+      render json: order_item.errors.full_messages
     end
   end
 

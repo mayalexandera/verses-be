@@ -14,7 +14,7 @@
 #  index_plan_memberships_on_member_id  (member_id) UNIQUE
 #
 class PlanMembership < ApplicationRecord
-  validates :plan_id, presence: true
+  validates :plan_id, :member_id, presence: true
   # after_create :create_plan_name_string
   
   belongs_to :member, class_name: "User"

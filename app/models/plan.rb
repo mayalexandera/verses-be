@@ -15,7 +15,6 @@
 class Plan < ApplicationRecord
   validates :price, :description, :features, :items, presence: true, allow_nil: true
   monetize :price_cents, allow_nil: true
-
   has_many :plan_memberships
   has_many :members, through: :plan_memberships, source: :user
 

@@ -35,23 +35,27 @@ class OrderItem < ApplicationRecord
   end
 
   def update_stock(size_id, quantity)
-    @size = Size.find_by(id: size_id)
-    if quantity <= @size.stock
-      @size.update!(stock: @size.stock - quantity)
+    size = Size.find_by(id: size_id)
+
+    if quantity <= size.stock
+      size.update!(stock: size.stock - quantity)
     end
+    
     return 'error'
   end
 
-
   def self.create_order_item(cart_item, order_id)
-  @order_item = OrderItem.new(
+
+  order_item = OrderItem.new(
     size_id: cart_item.size_id,
     product_id: cart_item.product_id,
     order_id: order_id,
     quantity: cart_item.quantity,
     price: cart_item.product.price
     )
-    return !@order_item.save ? 'Unable to process order item' : @order_item
+
+    return !order_item.save ? 'Unable to process order item' : order_item
+
   end
 
 end

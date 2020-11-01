@@ -20,7 +20,6 @@ class Cart < ApplicationRecord
     total = Money.new(0)
     self.cart_items.map{ |cart_item| total += cart_item.price} if self.cart_items
     self.update!(total_cost_string: total.format)
-
   end
 
 
