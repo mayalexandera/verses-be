@@ -40,7 +40,10 @@ class Product < ApplicationRecord
       sizes = Size.where(size: value)
       sizes.map{ |s| s.stock > 0 }
       products = sizes.map{ |s| s.product }.uniq()
+    else
+      products = Product.all
     end
+
     return products
   end
 

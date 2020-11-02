@@ -1,8 +1,8 @@
 class Api::V1::FavoritesController < ApplicationController
   def index
     if params[:user_id]
-      favorites = Favorite.where(member_id: params[:user_id])
-      render json: favorites.to_json(include: [:product])
+      favorites = Favorite.find_by(member_id: params[:user_id])
+      render json: favorites, include: :product
     else
       render json: { status: 404, message: "Unable to find favorites."}
     end
@@ -10,7 +10,7 @@ class Api::V1::FavoritesController < ApplicationController
 
   def create
     favorite = Favorite.create!(
-      member_id: params[:member_id],
+      member_id: params[:user_id],
       product_id: params[:product_id],
       size_id: params[:size_id]
     )
@@ -23,7 +23,6 @@ class Api::V1::FavoritesController < ApplicationController
 
   def destroy
     favorite = Favorite.find(params[:favorite_id])
-    user = User.select(id: params[:user_id])
     favorites = Favorite.select{ |f| f.member_id == params[:user_id] }
     if favorite.destroy
       render json: favorites

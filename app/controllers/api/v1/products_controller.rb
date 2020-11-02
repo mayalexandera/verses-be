@@ -1,11 +1,7 @@
 class Api::V1::ProductsController < ApplicationController
 
   def index
-    if params[:type]
-        products = Product.filter_selection(params[:type], params[:value])
-    else 
-      products = Product.all
-    end
+    products = Product.filter_selection(params[:type], params[:value])
     render json: { products: products }
   end
 
@@ -19,4 +15,5 @@ class Api::V1::ProductsController < ApplicationController
   def products_params
     params.require(:product).permit(:brand_id)
   end
+
 end

@@ -13,7 +13,7 @@ class Api::V1::CartItemsController < ApplicationController
       size_string: params[:size]
       )
     end
-    render json: {cart_item: @cart_item, cart: @cart}
+    render json: { cart_item: @cart_item, cart: @cart }
   end
 
   def update
